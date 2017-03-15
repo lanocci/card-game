@@ -10,13 +10,6 @@ class Card
   @faceValue
   @available
 
-  def available?
-    return @available
-  end
-
-  def mark_unavailable
-  end
-
   def initialize (c, s)
     @faceValue = c
     @suite = s
@@ -25,21 +18,46 @@ class Card
   def value()
   end
 
+  def available?
+    return @available
+  end
+
+  def mark_unavailable
+    @available = false
+  end
+
+  def mark_available
+    @available = true
+  end
   
 end
 
-class Hand
-  @card[]
+class Hand < Card
+  @cards = Array.new
+
+  def score
+    score = 0
+    for card in @cards do
+      score += card.value
+    end
+    return score
+  end
+  
+  def addCard(card)
+    @cards.add(card)
+  end
+    
 end
 
 class Deck < Card
-  @cards = []
+  @cards = Array.new
   @dealtIndex = 0
 
   def setDeckOfCards deckOfCards
   end
 
-  def shuffle
+  def shuffle!
+    @cards.shuffle!
   end
 
   def remainingCards
@@ -47,10 +65,30 @@ class Deck < Card
   end
 
   def dealtHand number
+    if remainingCards < number then
+      return nil
+    end
+
+    hand = Card[number]
+    int count = 0
+
+    while count < number do
+      card = dealCard
+      if !card.null? then
+        hand[count] = card
+        count++
+      end
+    end
+
+    return hand
   end
 
   def dealCard
   end
+
+  def print
+    for card in @cards do
+      card.print
+    end
   
 end
-
