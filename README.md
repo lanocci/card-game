@@ -1,1 +1,1 @@
-# <Learning Purpose>Card game program in OOD
+# (Learning Purpose) Card game program in OOD
