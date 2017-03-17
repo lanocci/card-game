@@ -1,5 +1,36 @@
 require 'CardGame.rb'
 
+class BlackJackCard < Card
+  def initialize(c, s)
+    super(c, s)
+  end
+
+  def value
+    if ace? then
+      return 1
+    elsif faceValue >= 11 && faceValue <= 13 then
+      return 10
+    else
+      return faveValue
+    end
+  end
+
+  def minValue
+    ace? ? return 1 : return value
+  end
+
+  def maxValue
+    ace? ? return 11 : return value
+  end
+
+  def ace?
+    return faceValue == 1
+  end
+
+  def faceCard?
+    return facevalue >= 11 && faceValue <= 13
+  end
+
 class BlackJackHand < Hand
   def score
     scores = possibleScores
